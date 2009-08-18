@@ -1,0 +1,15 @@
+dist_ptr:
+	* support rmi for local objects in migrationg state (will be possible when we forward rmis at once)
+
+MigrationGroup:
+	* Check that removing objects from deactiveted group (in migrating state) works
+	* Check changeGroup for bugs
+
+Migration:
+	* Forward RMI messages while objects are in migrating state
+	* Send a mininit(?) message to the new host first, and make it allocate
+	  the new objects, then send (just the changed?) data from the original objects
+
+Object:
+	* Devide Object into identifiable, remote, movable? Or something similar...
+

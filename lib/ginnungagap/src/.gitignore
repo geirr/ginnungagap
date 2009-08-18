@@ -1,0 +1,11 @@
+test
+testServer
+tags
+server
+client
+xdr
+CMakeCache.txt
+CMakeFiles/
+lib*.a
+Makefile
+cmake_install.cmake

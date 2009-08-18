@@ -1,0 +1,62 @@
+*****************
+** GINNUNGAGAP **
+*****************
+
+Ginnungagap(*) is a middleware written in C++ which 
+supports RMI, migration of objects, grouping
+of objects, and core selection. It includes basic
+server functionality. An test application, named
+Niflheim, which uses Ginnungagap, is included.
+
+
+*******************************
+* OVERVIEW OF THE SOURCE CODE *
+*******************************
+
+lib/ginnungagap:
+	This is the main middleware source code
+
+niflheim:
+	This is the test applications source code
+
+niflheim/src/ginnungagap:
+    This is the test applications bindings to the middleware\
+
+
+*************
+* COMPILING *
+*************
+
+Just run the compile.sh script, and the middleware
+and test application will be built in a directory
+called `build'. All the binaries can then be found
+in the direcory:
+
+build/niflheim/src
+
+
+**************************
+* NEEDED TOOLS/LIBRARIES *
+**************************
+
+* CMake
+* e2fsprogs libraries (for uuidgen)
+* GNU c library (for xdr)
+* Boost::Graph
+
+To install these on a debian/ubuntu compatible system, use the
+following command:
+
+sudo apt-get install libc-dev uuid-dev cmake libboost-graph-dev
+
+***********
+* LICENCE *
+***********
+
+Se the file COPYING
+
+
+* Ginnungagap: A term from Old Norse mythology, Ginnungagap is
+what exists before the world is created; it is envisioned as an
+enormously wide gap, filled with energies but lacking form or order.
+
