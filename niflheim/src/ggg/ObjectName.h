@@ -20,33 +20,20 @@
 *                                                                       *
 ************************************************************************/
 
-#include "GoldmineProxy.h"
+#ifndef GINNUNGAGAP_OBJECTNAME_H
+#define GINNUNGAGAP_OBJECTNAME_H
 
-#include "ObjectName.h"
-#include "MessageType.h"
-#include "NameService.h"
-#include "Ginnungagap.h"
-#include "CommunicationSocketManager.h"
-
-#include <iostream>
-using std::endl;
-using std::cerr;
-using std::vector;
-using std::pair;
-
-namespace ginnungagap
+namespace ggg
 {
-	GoldmineProxy::GoldmineProxy(const Uuid& objectId)
+	enum ObjectName
 	{
-		objectType_ = NIFLHEIM_GOLDMINE_OBJ;
-		object_ = this;
-		this->setObjectId(objectId);
-		sendNeed();
-	}
-
-	GoldmineProxy::~GoldmineProxy()
-	{
-		sendDontNeed();
-	}
+		TESTOBJECT_OBJ,
+		NIFLHEIM_WORLD_OBJ,
+		NIFLHEIM_AVATAR_OBJ,
+		NIFLHEIM_GOLDMINE_OBJ,
+		NIFLHEIM_VIEW_OBJ
+	};
 }
+
+#endif
 

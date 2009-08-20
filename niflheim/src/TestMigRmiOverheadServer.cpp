@@ -38,8 +38,8 @@
 using std::cout; using std::cin; using std::endl; using std::string;
 using std::cerr; using std::stringstream; using std::istringstream;
 
-using ginnungagap::Ginnungagap; using ginnungagap::NetAddr; using ginnungagap::Uuid;
-using ginnungagap::SERVER; using ginnungagap::MigrationGroup;
+using ggg::Ginnungagap; using ggg::NetAddr; using ggg::Uuid;
+using ggg::SERVER; using ggg::MigrationGroup;
 
 int main(int argc, char* argv[])
 {

@@ -36,8 +36,8 @@
 
 using std::cerr; using std::cout; using std::endl; using std::istringstream;
 
-using ginnungagap::Ginnungagap; using ginnungagap::Uuid; using ginnungagap::dist_ptr; using ginnungagap::NetAddr;
-using ginnungagap::PROXY;
+using ggg::Ginnungagap; using ggg::Uuid; using ggg::dist_ptr; using ggg::NetAddr;
+using ggg::PROXY;
 
 int main(int argc, char* argv[])
 {

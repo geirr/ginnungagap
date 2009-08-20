@@ -30,7 +30,7 @@
 #include <iostream>
 using std::cerr; using std::endl;
 
-using namespace ginnungagap;
+using namespace ggg;
 
 namespace niflheim
 {

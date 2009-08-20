@@ -24,7 +24,7 @@
 #ifndef GINNUNGAGAP_VERSION_H
 #define GINNUNGAGAP_VERSION_H
 
-namespace ginnungagap
+namespace ggg
 {
 	enum Version
 	{

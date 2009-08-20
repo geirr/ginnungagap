@@ -34,7 +34,7 @@ using std::pair; using std::make_pair; using std::list; using std::map; using st
 
 using std::cerr; using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef list<Uuid>::const_iterator cObjItr_t;
 	typedef list<Uuid>::iterator objItr_t;

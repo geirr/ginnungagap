@@ -27,21 +27,21 @@ find_package(Threads REQUIRED)
 
 #  CURSES_LIBRARIES - The libraries needed to use Curses
 
-add_subdirectory(ginnungagap)
+add_subdirectory(ggg)
 
-add_library(World STATIC World.cpp ginnungagap/WorldMigration.cpp)
+add_library(World STATIC World.cpp ggg/WorldMigration.cpp)
 target_link_libraries(World Avatar Goldmine ProxyFactory)
 
-add_library(Avatar STATIC Avatar.cpp ginnungagap/AvatarMigration.cpp)
+add_library(Avatar STATIC Avatar.cpp ggg/AvatarMigration.cpp)
 target_link_libraries(Avatar World Goldmine ProxyFactory)
 
 add_library(View STATIC View.cpp)
 target_link_libraries(View ProxyFactory)
 
-add_library(Goldmine STATIC Goldmine.cpp ginnungagap/GoldmineMigration.cpp)
+add_library(Goldmine STATIC Goldmine.cpp ggg/GoldmineMigration.cpp)
 target_link_libraries(Goldmine World ProxyFactory)
 
-add_library(TestObject STATIC TestObject.cpp ginnungagap/TestObjectMigration.cpp)
+add_library(TestObject STATIC TestObject.cpp ggg/TestObjectMigration.cpp)
 
 
 # Niflheim server, proxy and client

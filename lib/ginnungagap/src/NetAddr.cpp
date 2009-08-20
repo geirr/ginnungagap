@@ -34,7 +34,7 @@ using std::string;
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	NetAddr::NetAddr(const std::string& ip, const std::string& port)
 	{

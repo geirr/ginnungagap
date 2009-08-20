@@ -20,67 +20,39 @@
 *                                                                       *
 ************************************************************************/
 
-#include "Avatar.h"
+#ifndef GINNUNGAGAP_WORLDPROXY_H
+#define GINNUNGAGAP_WORLDPROXY_H
+
+#include <Proxy.h>
+
 #include "World.h"
 #include "Uuid.h"
-#include "MessageType.h"
-#include "ObjectName.h"
-#include "XdrSendBuffer.h"
 
-#include <iostream>
-using std::cerr; using std::endl;
-
-using namespace ginnungagap;
-
-namespace niflheim
+namespace ggg
 {
-	XdrSendBuffer* Avatar::deflate()
+	class WorldProxy : public Proxy, public niflheim::World
 	{
-		int msg = MIGOBJ;
-		int objectType = NIFLHEIM_AVATAR_OBJ;
-		int active = 0;
-		if (active_)
-			active = 1;
+		public:
+			WorldProxy(const Uuid& objectId);
+			~WorldProxy();
 
-		Uuid worldId = world_.objectId();
-		NetAddr worldAddr = Ginnungagap::Instance()->nameService()->netAddr(worldId);
+			/* RMI callable */
+			ggg::dist_ptr<niflheim::Avatar> getNewAvatar(const ggg::dist_ptr<niflheim::View>& view);
+			std::pair<int, int> getSize();
+			int getViewSize();
 
-		Uuid viewId = view_.objectId();
-		NetAddr viewAddr = Ginnungagap::Instance()->nameService()->netAddr(viewId);
-
-		XdrSendBuffer* xdr = new XdrSendBuffer(INT*3 + OBJID*3 + NETADDR*2);
-		*xdr << msg << objectType << this->objectId() << worldId << worldAddr << viewId << viewAddr << active;
-		return xdr;
-	}
-
-	Avatar::Avatar(XdrReceiveBuffer* xdr)
-	{
-		Uuid objId;
-		Uuid worldId;
-		NetAddr worldAddr;
-		Uuid viewId;
-		NetAddr viewAddr;
-		int active;
-		*xdr >> objId >> worldId >> worldAddr >> viewId >> viewAddr >> active;
-		this->setObjectId(objId);
-
-		if (!(Ginnungagap::Instance()->nameService()->exists(worldId)))
-		{
-			Ginnungagap::Instance()->nameService()->updateNetAddr(worldId, worldAddr);
-		}
-
-		if (!(Ginnungagap::Instance()->nameService()->exists(viewId)))
-		{
-			Ginnungagap::Instance()->nameService()->updateNetAddr(viewId, viewAddr);
-		}
-			
-		world_ = dist_ptr<World>(worldId);
-		view_ = dist_ptr<View>(viewId);
-
-		if (active == 0)
-			active_ = false;
-		else
-			active_ = true;
-	}
+			/* events */
+			void moveAvatar(ggg::dist_ptr<niflheim::Avatar> avatar, const niflheim::Direction& direction);
+			void updateWithGoldmine(const ggg::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
+			void updateWithAvatar(const ggg::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
+			void removeBufferAvatar(const ggg::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
+			void moveBufferAvatar(const ggg::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position, const niflheim::Direction& direction);
+			void moveFromOtherWorld(const ggg::dist_ptr<niflheim::Avatar>& avatar, ggg::dist_ptr<niflheim::World> world, const std::pair<int, int>& from, const std::pair<int, int>& to);
+			void moveOK(const std::pair<int, int>& from, const std::pair<int, int>& to);
+			void moveNotOK(const std::pair<int, int>& from);
+			void deleteAvatar(const ggg::dist_ptr<niflheim::Avatar>& avatar);
+	};
 }
+
+#endif
 

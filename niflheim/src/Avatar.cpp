@@ -30,7 +30,7 @@
 using std::cerr;
 using std::endl;
 
-using ginnungagap::dist_ptr;
+using ggg::dist_ptr;
 
 namespace niflheim
 {

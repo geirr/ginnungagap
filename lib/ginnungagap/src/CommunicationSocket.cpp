@@ -38,7 +38,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	CommunicationSocket::CommunicationSocket(const NetAddr& otherEnd) : otherEnd_(otherEnd)
 	{

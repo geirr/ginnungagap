@@ -27,7 +27,7 @@
 
 namespace niflheim
 {
-	Goldmine::Goldmine(const ginnungagap::dist_ptr<World>& world) :
+	Goldmine::Goldmine(const ggg::dist_ptr<World>& world) :
 				world_(world)
 	{
 	}

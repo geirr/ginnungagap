@@ -22,8 +22,8 @@
 
 #include <Ginnungagap.h>
 
-using ginnungagap::Ginnungagap; using ginnungagap::NetAddr;
-using ginnungagap::CLIENT;
+using ggg::Ginnungagap; using ggg::NetAddr;
+using ggg::CLIENT;
 
 int main(int argc, char* argv[])
 {

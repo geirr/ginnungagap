@@ -28,7 +28,7 @@
 #include "Uuid.h"
 #include "NetAddr.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	class XdrSendBuffer : public XdrBuffer
 	{

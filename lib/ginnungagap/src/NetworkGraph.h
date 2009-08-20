@@ -34,7 +34,7 @@
 
 #include <set>
 
-namespace ginnungagap
+namespace ggg
 {
 	struct NodeProperties
 	{

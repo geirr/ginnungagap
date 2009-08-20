@@ -27,7 +27,7 @@
 
 #include <map>
 
-namespace ginnungagap
+namespace ggg
 {
 	class CommunicationSocket;
 

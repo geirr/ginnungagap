@@ -28,7 +28,7 @@
 
 #include <iostream>
 
-using namespace ginnungagap;
+using namespace ggg;
 
 using std::vector; using std::pair; using std::make_pair; using std::list; using std::map;
 

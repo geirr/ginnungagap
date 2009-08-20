@@ -33,8 +33,8 @@ using std::cout; using std::cerr; using std::endl;
 
 using std::vector; using std::list; using std::make_pair; using std::pair; using std::map;
 
-using ginnungagap::dist_ptr; using ginnungagap::Ginnungagap;
-using ginnungagap::MigrationGroup; using ginnungagap::Uuid;
+using ggg::dist_ptr; using ggg::Ginnungagap;
+using ggg::MigrationGroup; using ggg::Uuid;
 
 namespace niflheim
 {
@@ -60,7 +60,7 @@ namespace niflheim
 			world_ = vector< vector<WorldObject> >(xLen+viewSize_-1, std::vector<WorldObject>(yLen+viewSize_-1));
 		}
 
-		/* create migration group, and add it to ginnungagap */
+		/* create migration group, and add it to ggg */
 		MigrationGroup* mg = new MigrationGroup();
 		migrationGroupId_ = mg->groupId();
 		mg->addObject(this->objectId());
@@ -543,7 +543,7 @@ namespace niflheim
 		return worldsInLOS;
 	}
 
-	AvatarsView World::getAvatarsView(const ginnungagap::dist_ptr<Avatar>& avatar)
+	AvatarsView World::getAvatarsView(const ggg::dist_ptr<Avatar>& avatar)
 	{
 		int half = viewSize_/2;
 		pair<int, int> pos = getPosition(avatar);
@@ -688,12 +688,12 @@ namespace niflheim
 		return worldWithin;
 	}
 
-	void World::addWorldOffset(const ginnungagap::dist_ptr<World>& world, const std::pair<int, int>& offset)
+	void World::addWorldOffset(const ggg::dist_ptr<World>& world, const std::pair<int, int>& offset)
 	{
 		worldOffsets_[world] = offset;
 	}
 
-	std::pair<int, int> World::getPositionWithOffset(const ginnungagap::dist_ptr<World>& world, const std::pair<int, int>& pos)
+	std::pair<int, int> World::getPositionWithOffset(const ggg::dist_ptr<World>& world, const std::pair<int, int>& pos)
 	{
 		cWorldOffsetItr_t woItr = worldOffsets_.find(world);
 		if (woItr == worldOffsets_.end())

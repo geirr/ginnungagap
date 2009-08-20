@@ -31,7 +31,7 @@ using std::endl;
 
 using std::multimap; using std::pair; using std::list; using std::make_pair; using std::stringstream;
 
-namespace ginnungagap
+namespace ggg
 {
 	void NetworkGraph::addServer(const NetAddr& netAddr)
 	{

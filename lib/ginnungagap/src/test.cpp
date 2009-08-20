@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-using namespace ginnungagap;
+using namespace ggg;
 using namespace std;
 
 int main()

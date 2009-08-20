@@ -20,39 +20,33 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_WORLDPROXY_H
-#define GINNUNGAGAP_WORLDPROXY_H
+#include "GoldmineProxy.h"
 
-#include <Proxy.h>
+#include "ObjectName.h"
+#include "MessageType.h"
+#include "NameService.h"
+#include "Ginnungagap.h"
+#include "CommunicationSocketManager.h"
 
-#include "World.h"
-#include "Uuid.h"
+#include <iostream>
+using std::endl;
+using std::cerr;
+using std::vector;
+using std::pair;
 
-namespace ginnungagap
+namespace ggg
 {
-	class WorldProxy : public Proxy, public niflheim::World
+	GoldmineProxy::GoldmineProxy(const Uuid& objectId)
 	{
-		public:
-			WorldProxy(const Uuid& objectId);
-			~WorldProxy();
+		objectType_ = NIFLHEIM_GOLDMINE_OBJ;
+		object_ = this;
+		this->setObjectId(objectId);
+		sendNeed();
+	}
 
-			/* RMI callable */
-			ginnungagap::dist_ptr<niflheim::Avatar> getNewAvatar(const ginnungagap::dist_ptr<niflheim::View>& view);
-			std::pair<int, int> getSize();
-			int getViewSize();
-
-			/* events */
-			void moveAvatar(ginnungagap::dist_ptr<niflheim::Avatar> avatar, const niflheim::Direction& direction);
-			void updateWithGoldmine(const ginnungagap::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
-			void updateWithAvatar(const ginnungagap::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
-			void removeBufferAvatar(const ginnungagap::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position);
-			void moveBufferAvatar(const ginnungagap::dist_ptr<niflheim::World>& world, const std::pair<int, int>& position, const niflheim::Direction& direction);
-			void moveFromOtherWorld(const ginnungagap::dist_ptr<niflheim::Avatar>& avatar, ginnungagap::dist_ptr<niflheim::World> world, const std::pair<int, int>& from, const std::pair<int, int>& to);
-			void moveOK(const std::pair<int, int>& from, const std::pair<int, int>& to);
-			void moveNotOK(const std::pair<int, int>& from);
-			void deleteAvatar(const ginnungagap::dist_ptr<niflheim::Avatar>& avatar);
-	};
+	GoldmineProxy::~GoldmineProxy()
+	{
+		sendDontNeed();
+	}
 }
-
-#endif
 

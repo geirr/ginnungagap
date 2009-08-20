@@ -35,10 +35,10 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-using ginnungagap::Ginnungagap;
-using ginnungagap::NetAddr;
-using ginnungagap::Uuid;
-using ginnungagap::SERVER;
+using ggg::Ginnungagap;
+using ggg::NetAddr;
+using ggg::Uuid;
+using ggg::SERVER;
 
 int main(int argc, char* argv[])
 {

@@ -30,7 +30,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	class XdrReceiveBuffer;
 	class Object;

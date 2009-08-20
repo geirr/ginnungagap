@@ -19,7 +19,7 @@ lib/ginnungagap:
 niflheim:
 	This is the test applications source code
 
-niflheim/src/ginnungagap:
+niflheim/src/ggg:
     This is the test applications bindings to the middleware\
 
 

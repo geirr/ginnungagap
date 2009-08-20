@@ -42,7 +42,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace ginnungagap
+namespace ggg
 {
 	class NameService;
 	class MigrationService;

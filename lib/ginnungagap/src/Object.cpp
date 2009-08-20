@@ -23,7 +23,7 @@
 #include "Object.h"
 #include <iostream>
 
-namespace ginnungagap
+namespace ggg
 {
 	Object::~Object() {}
 

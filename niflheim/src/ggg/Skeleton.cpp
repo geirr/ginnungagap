@@ -43,7 +43,7 @@ using std::pair; using std::make_pair; using std::vector;
 using niflheim::WorldObjectType; using niflheim::View; using niflheim::Direction; using niflheim::AvatarsView;
 using niflheim::Avatar; using niflheim::World; using niflheim::WorldObjectInfo;
 
-namespace ginnungagap
+namespace ggg
 {
 	XdrSendBuffer* Skeleton::makeRmiRetMsg(const int& size)
 	{

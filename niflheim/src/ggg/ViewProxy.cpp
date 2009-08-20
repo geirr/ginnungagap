@@ -20,45 +20,70 @@
 *                                                                       *
 ************************************************************************/
 
-#include "TestObject.h"
-#include "Uuid.h"
-#include "MessageType.h"
+#include "ViewProxy.h"
+
 #include "ObjectName.h"
-#include "XdrSendBuffer.h"
+#include "MessageType.h"
+#include "NameService.h"
+#include "Ginnungagap.h"
+#include "CommunicationSocketManager.h"
 
 #include <iostream>
-
+using std::endl;
+using std::cerr;
 using std::vector;
-using namespace ginnungagap;
+using std::pair;
 
-XdrSendBuffer* TestObject::deflate()
+using niflheim::WorldObjectInfo;
+using niflheim::AvatarsView;
+
+namespace ggg
 {
-	int msg = MIGOBJ;
-	int objectType = TESTOBJECT_OBJ;
-	int size = INT*(2 + 1 + data_.size()) + OBJID;
-	XdrSendBuffer* xdr = new XdrSendBuffer(size);
-	int tmp = data_.size();
-	*xdr << msg << objectType << this->objectId() << tmp;
-	for (vector<int>::const_iterator dataItr = data_.begin(); dataItr != data_.end(); ++dataItr)
+	typedef vector< WorldObjectInfo >::const_iterator cObjItr_t;
+
+	ViewProxy::ViewProxy(const Uuid& objectId)
 	{
-		tmp = *dataItr;
-		*xdr << tmp;
+		objectType_ = NIFLHEIM_VIEW_OBJ;
+		object_ = this;
+		this->setObjectId(objectId);
+		sendNeed();
 	}
-	return xdr;
-}
 
-TestObject::TestObject(XdrReceiveBuffer* xdr)
-{
-	Uuid objId;
-	*xdr >> objId;
-	this->setObjectId(objId);
-	int tmp, tmp2;
-	*xdr >> tmp;
-	data_.reserve(tmp);
-	for (int i = 0; i != tmp; ++i)
+	ViewProxy::~ViewProxy()
 	{
-		*xdr >> tmp2;
-		data_.push_back(tmp2);
+		sendDontNeed();
+	}
+
+	/* Event */
+	void ViewProxy::updateView(const AvatarsView& avatarsView)
+	{
+		/* Hack: If we are a server or proxy, and don't already have a connection, the client have probably disconnected */
+		if ((Ginnungagap::Instance()->appType() == SERVER) || (Ginnungagap::Instance()->appType() == PROXY))
+		{
+			if (!(Ginnungagap::Instance()->haveConnectionTo(Ginnungagap::Instance()->nameService()->netAddr(this->objectId()))))
+			{
+				return;
+			}
+		}
+
+		XdrSendBuffer* xdr = makeEventMsg(0, INT*5 + (INT*3)*avatarsView.worldObjects.size());
+		
+		pair<int, int> vtlc = avatarsView.visibleTopLeftCorner;
+		pair<int, int> vlrc = avatarsView.visibleLowerRightCorner;
+		int size = avatarsView.worldObjects.size();
+		
+		*xdr << vtlc.first << vtlc.second << vlrc.first << vlrc.second << size;
+		int wot, x, y;
+		for (cObjItr_t wo = avatarsView.worldObjects.begin(); wo != avatarsView.worldObjects.end(); ++wo)
+		{
+			x = wo->position.first;
+			y = wo->position.second;
+			*xdr << x << y;
+			wot = wo->worldObjectType;
+			*xdr << wot;
+		}
+
+		sendEvent(xdr);
 	}
 }
 

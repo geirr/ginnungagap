@@ -28,7 +28,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	XdrSendBuffer::XdrSendBuffer(unsigned int bufferSize)
 	{

@@ -25,7 +25,7 @@
 
 #include "MessageType.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	class XdrReceiveBuffer;
 	class XdrSendBuffer;

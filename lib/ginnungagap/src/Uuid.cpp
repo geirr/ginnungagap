@@ -26,7 +26,7 @@
 
 using std::string;
 
-namespace ginnungagap
+namespace ggg
 {
 	Uuid::Uuid()
 	{

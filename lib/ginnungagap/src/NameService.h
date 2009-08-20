@@ -28,7 +28,7 @@
 
 #include <map>
 
-namespace ginnungagap
+namespace ggg
 {
 	class NameServiceRecord;
 	class Object;

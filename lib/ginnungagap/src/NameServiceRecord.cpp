@@ -27,7 +27,7 @@
 #include "Uuid.h"
 #include "Ginnungagap.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	NameServiceRecord::NameServiceRecord(const Uuid& objectId, Object* object) :
 		objectId_(objectId), netAddr_(Ginnungagap::Instance()->netAddr()), local_(true), proxyCount_(0), localObjectOrProxy_(object) {}

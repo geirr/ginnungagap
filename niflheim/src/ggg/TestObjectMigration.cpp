@@ -20,31 +20,45 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_AVATARPROXY_H
-#define GINNUNGAGAP_AVATARPROXY_H
-
-#include <Proxy.h>
-
-#include "Avatar.h"
+#include "TestObject.h"
 #include "Uuid.h"
+#include "MessageType.h"
+#include "ObjectName.h"
+#include "XdrSendBuffer.h"
 
-namespace ginnungagap
+#include <iostream>
+
+using std::vector;
+using namespace ggg;
+
+XdrSendBuffer* TestObject::deflate()
 {
-	class AvatarProxy : public Proxy, public niflheim::Avatar
+	int msg = MIGOBJ;
+	int objectType = TESTOBJECT_OBJ;
+	int size = INT*(2 + 1 + data_.size()) + OBJID;
+	XdrSendBuffer* xdr = new XdrSendBuffer(size);
+	int tmp = data_.size();
+	*xdr << msg << objectType << this->objectId() << tmp;
+	for (vector<int>::const_iterator dataItr = data_.begin(); dataItr != data_.end(); ++dataItr)
 	{
-		public:
-			AvatarProxy(const Uuid& objectId);
-			~AvatarProxy();
-
-			/* Event */
-			void updateView(const niflheim::AvatarsView& avatarsView);
-			void move(const niflheim::Direction& direction);
-			void changeWorld(const ginnungagap::dist_ptr<niflheim::World>& newWorld);
-			void deactivate();
-			void activate();
-			void deleteAvatar();
-	};
+		tmp = *dataItr;
+		*xdr << tmp;
+	}
+	return xdr;
 }
 
-#endif
+TestObject::TestObject(XdrReceiveBuffer* xdr)
+{
+	Uuid objId;
+	*xdr >> objId;
+	this->setObjectId(objId);
+	int tmp, tmp2;
+	*xdr >> tmp;
+	data_.reserve(tmp);
+	for (int i = 0; i != tmp; ++i)
+	{
+		*xdr >> tmp2;
+		data_.push_back(tmp2);
+	}
+}
 

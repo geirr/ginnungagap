@@ -20,30 +20,25 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_TESTRMIPROXY_H
-#define GINNUNGAGAP_TESTRMIPROXY_H
+#ifndef GINNUNGAGAP_VIEWPROXY_H
+#define GINNUNGAGAP_VIEWPROXY_H
 
 #include <Proxy.h>
 
-#include "TestObject.h"
-#include "Uuid.h"
+#include "View.h"
 
-namespace ginnungagap
+#include <iostream>
+
+namespace ggg
 {
-	class TestObjectProxy : public Proxy, public TestObject
+	class ViewProxy : public Proxy, public niflheim::View
 	{
 		public:
-			TestObjectProxy(const Uuid& objectId);
-			~TestObjectProxy();
+			ViewProxy(const Uuid& objectId);
+			~ViewProxy();
 
-			/* RMI callabe functions */
-			void void_void();
-			void void_int(int one);
-			int int_void();
-			int int_int(int one);
-			int int_intInt(int one, int two);
-			int int_intIntInt(int one, int two, int three);
-			int int_vectorOfInts(const std::vector<int>& vectorOfInts);
+			/* Should be callable with rmi */
+			void updateView(const niflheim::AvatarsView& avatarsView);
 	};
 }
 

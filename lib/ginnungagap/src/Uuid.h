@@ -26,7 +26,7 @@
 #include <uuid/uuid.h>
 #include <string>
 
-namespace ginnungagap
+namespace ggg
 {
 	class Uuid
 	{

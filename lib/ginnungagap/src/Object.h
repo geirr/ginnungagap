@@ -25,7 +25,7 @@
 
 #include "Uuid.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	class XdrSendBuffer;
 

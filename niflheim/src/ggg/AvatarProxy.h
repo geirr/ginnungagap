@@ -20,22 +20,29 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_GOLDMINEPROXY_H
-#define GINNUNGAGAP_GOLDMINEPROXY_H
+#ifndef GINNUNGAGAP_AVATARPROXY_H
+#define GINNUNGAGAP_AVATARPROXY_H
 
 #include <Proxy.h>
 
-#include "Goldmine.h"
+#include "Avatar.h"
+#include "Uuid.h"
 
-#include <iostream>
-
-namespace ginnungagap
+namespace ggg
 {
-	class GoldmineProxy : public Proxy, public niflheim::Goldmine
+	class AvatarProxy : public Proxy, public niflheim::Avatar
 	{
 		public:
-			GoldmineProxy(const Uuid& objectId);
-			~GoldmineProxy();
+			AvatarProxy(const Uuid& objectId);
+			~AvatarProxy();
+
+			/* Event */
+			void updateView(const niflheim::AvatarsView& avatarsView);
+			void move(const niflheim::Direction& direction);
+			void changeWorld(const ggg::dist_ptr<niflheim::World>& newWorld);
+			void deactivate();
+			void activate();
+			void deleteAvatar();
 	};
 }
 

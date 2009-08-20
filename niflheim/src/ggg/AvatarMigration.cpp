@@ -20,70 +20,67 @@
 *                                                                       *
 ************************************************************************/
 
-#include "ViewProxy.h"
-
-#include "ObjectName.h"
+#include "Avatar.h"
+#include "World.h"
+#include "Uuid.h"
 #include "MessageType.h"
-#include "NameService.h"
-#include "Ginnungagap.h"
-#include "CommunicationSocketManager.h"
+#include "ObjectName.h"
+#include "XdrSendBuffer.h"
 
 #include <iostream>
-using std::endl;
-using std::cerr;
-using std::vector;
-using std::pair;
+using std::cerr; using std::endl;
 
-using niflheim::WorldObjectInfo;
-using niflheim::AvatarsView;
+using namespace ggg;
 
-namespace ginnungagap
+namespace niflheim
 {
-	typedef vector< WorldObjectInfo >::const_iterator cObjItr_t;
-
-	ViewProxy::ViewProxy(const Uuid& objectId)
+	XdrSendBuffer* Avatar::deflate()
 	{
-		objectType_ = NIFLHEIM_VIEW_OBJ;
-		object_ = this;
-		this->setObjectId(objectId);
-		sendNeed();
+		int msg = MIGOBJ;
+		int objectType = NIFLHEIM_AVATAR_OBJ;
+		int active = 0;
+		if (active_)
+			active = 1;
+
+		Uuid worldId = world_.objectId();
+		NetAddr worldAddr = Ginnungagap::Instance()->nameService()->netAddr(worldId);
+
+		Uuid viewId = view_.objectId();
+		NetAddr viewAddr = Ginnungagap::Instance()->nameService()->netAddr(viewId);
+
+		XdrSendBuffer* xdr = new XdrSendBuffer(INT*3 + OBJID*3 + NETADDR*2);
+		*xdr << msg << objectType << this->objectId() << worldId << worldAddr << viewId << viewAddr << active;
+		return xdr;
 	}
 
-	ViewProxy::~ViewProxy()
+	Avatar::Avatar(XdrReceiveBuffer* xdr)
 	{
-		sendDontNeed();
-	}
+		Uuid objId;
+		Uuid worldId;
+		NetAddr worldAddr;
+		Uuid viewId;
+		NetAddr viewAddr;
+		int active;
+		*xdr >> objId >> worldId >> worldAddr >> viewId >> viewAddr >> active;
+		this->setObjectId(objId);
 
-	/* Event */
-	void ViewProxy::updateView(const AvatarsView& avatarsView)
-	{
-		/* Hack: If we are a server or proxy, and don't already have a connection, the client have probably disconnected */
-		if ((Ginnungagap::Instance()->appType() == SERVER) || (Ginnungagap::Instance()->appType() == PROXY))
+		if (!(Ginnungagap::Instance()->nameService()->exists(worldId)))
 		{
-			if (!(Ginnungagap::Instance()->haveConnectionTo(Ginnungagap::Instance()->nameService()->netAddr(this->objectId()))))
-			{
-				return;
-			}
+			Ginnungagap::Instance()->nameService()->updateNetAddr(worldId, worldAddr);
 		}
 
-		XdrSendBuffer* xdr = makeEventMsg(0, INT*5 + (INT*3)*avatarsView.worldObjects.size());
-		
-		pair<int, int> vtlc = avatarsView.visibleTopLeftCorner;
-		pair<int, int> vlrc = avatarsView.visibleLowerRightCorner;
-		int size = avatarsView.worldObjects.size();
-		
-		*xdr << vtlc.first << vtlc.second << vlrc.first << vlrc.second << size;
-		int wot, x, y;
-		for (cObjItr_t wo = avatarsView.worldObjects.begin(); wo != avatarsView.worldObjects.end(); ++wo)
+		if (!(Ginnungagap::Instance()->nameService()->exists(viewId)))
 		{
-			x = wo->position.first;
-			y = wo->position.second;
-			*xdr << x << y;
-			wot = wo->worldObjectType;
-			*xdr << wot;
+			Ginnungagap::Instance()->nameService()->updateNetAddr(viewId, viewAddr);
 		}
+			
+		world_ = dist_ptr<World>(worldId);
+		view_ = dist_ptr<View>(viewId);
 
-		sendEvent(xdr);
+		if (active == 0)
+			active_ = false;
+		else
+			active_ = true;
 	}
 }
 

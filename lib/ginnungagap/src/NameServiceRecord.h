@@ -26,7 +26,7 @@
 #include "NetAddr.h"
 #include "Uuid.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	class Object;
 

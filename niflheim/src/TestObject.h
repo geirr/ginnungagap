@@ -28,7 +28,7 @@
 
 #include <vector>
 
-class TestObject : public ginnungagap::Object
+class TestObject : public ggg::Object
 {
 	public:
 		TestObject() :  tmp_(0), data_(std::vector<int>(0)) {}
@@ -44,8 +44,8 @@ class TestObject : public ginnungagap::Object
 		virtual int int_vectorOfInts(const std::vector<int>& vectorOfInts);
 
 		/* mingration */
-		ginnungagap::XdrSendBuffer* deflate();
-		TestObject(ginnungagap::XdrReceiveBuffer* xdr);
+		ggg::XdrSendBuffer* deflate();
+		TestObject(ggg::XdrReceiveBuffer* xdr);
 
 	private:
 		int tmp_;

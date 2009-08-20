@@ -36,7 +36,7 @@ using std::endl;
 
 using std::list; using std::map; using std::queue; using std::string;
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef map< Uuid, queue<XdrBuffer*>* >::iterator bufferQueueMapItr_t;
 	typedef list<MigrationGroup*>::const_iterator cMigGroupsItr_T;

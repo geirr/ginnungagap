@@ -33,7 +33,7 @@ using std::ios;
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	XdrReceiveBuffer::XdrReceiveBuffer(unsigned int bufferSize)
 	{

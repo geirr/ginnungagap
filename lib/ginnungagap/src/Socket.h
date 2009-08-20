@@ -27,7 +27,7 @@
 
 #include <sys/socket.h>
 
-namespace ginnungagap
+namespace ggg
 {
 	class Socket
 	{

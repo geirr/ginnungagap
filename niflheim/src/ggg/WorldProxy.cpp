@@ -40,7 +40,7 @@ using niflheim::View;
 using niflheim::World;
 using niflheim::Direction;
 
-namespace ginnungagap
+namespace ggg
 {
 	WorldProxy::WorldProxy(const Uuid& objectId)
 	{

@@ -26,7 +26,7 @@
 #include <string>
 #include <netinet/in.h>
 
-namespace ginnungagap
+namespace ggg
 {
 	class NetAddr
 	{

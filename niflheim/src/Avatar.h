@@ -38,10 +38,10 @@ namespace niflheim
 	class World;
 	class View;
 
-	class Avatar : public ginnungagap::Object
+	class Avatar : public ggg::Object
 	{
 		public:
-			Avatar(const ginnungagap::dist_ptr<World>& world, const ginnungagap::dist_ptr<View>& view) :
+			Avatar(const ggg::dist_ptr<World>& world, const ggg::dist_ptr<View>& view) :
 				world_(world), view_(view), active_(true) {}
 
 			/* RMI */
@@ -50,18 +50,18 @@ namespace niflheim
 
 			/* events */
 			virtual void updateView(const AvatarsView& avatarsView);
-			virtual void changeWorld(const ginnungagap::dist_ptr<World>& newWorld);
+			virtual void changeWorld(const ggg::dist_ptr<World>& newWorld);
 			virtual void deactivate();
 			virtual void activate();
 
 			/* migration */
-			ginnungagap::XdrSendBuffer* deflate();
-			Avatar(ginnungagap::XdrReceiveBuffer* xdr);
+			ggg::XdrSendBuffer* deflate();
+			Avatar(ggg::XdrReceiveBuffer* xdr);
 			Avatar() {}
 
 		private:
-			ginnungagap::dist_ptr<World> world_;
-			ginnungagap::dist_ptr<View> view_;
+			ggg::dist_ptr<World> world_;
+			ggg::dist_ptr<View> view_;
 			/* not allowd to move more, if we are trying to move between worlds */
 			bool active_;
 	};

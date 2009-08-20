@@ -34,7 +34,7 @@
 
 #include <queue>
 
-namespace ginnungagap
+namespace ggg
 {
 	class XdrSendBuffer;
 	class XdrBuffer;

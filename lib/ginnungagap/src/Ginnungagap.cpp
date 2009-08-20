@@ -60,35 +60,35 @@ extern "C" void* C_latencyMeasurer(void*);
 
 void* C_messageHandlerWithCoreSelection(void*)
 {
-	ginnungagap::Ginnungagap::Instance()->messageHandlerWithCoreSelection();
+	ggg::Ginnungagap::Instance()->messageHandlerWithCoreSelection();
 	return 0;
 }
 
 void* C_messageHandler(void*)
 {
-	ginnungagap::Ginnungagap::Instance()->messageHandler();
+	ggg::Ginnungagap::Instance()->messageHandler();
 	return 0;
 }
 
 void* C_dataSender(void*)
 {
-	ginnungagap::Ginnungagap::Instance()->dataSender();
+	ggg::Ginnungagap::Instance()->dataSender();
 	return 0;
 }
 
 void* C_dataAndConnectionsReceiver(void*)
 {
-	ginnungagap::Ginnungagap::Instance()->dataAndConnectionsReceiver();
+	ggg::Ginnungagap::Instance()->dataAndConnectionsReceiver();
 	return 0;
 }
 
 void* C_latencyMeasurer(void*)
 {
-	ginnungagap::Ginnungagap::Instance()->latencyMeasurer();
+	ggg::Ginnungagap::Instance()->latencyMeasurer();
 	return 0;
 }
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef std::list<NetAddr>::iterator spItr_t;
 

@@ -30,7 +30,7 @@
 #include <queue>
 #include <list>
 
-namespace ginnungagap
+namespace ggg
 {
 	class MigrationGroup;
 	class XdrBuffer;

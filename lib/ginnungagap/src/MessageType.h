@@ -26,7 +26,7 @@
 #include "XdrReceiveBuffer.h"
 #include "CommunicationSocket.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	enum MessageType
 	{

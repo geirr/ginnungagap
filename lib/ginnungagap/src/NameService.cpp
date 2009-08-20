@@ -38,7 +38,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef std::map<Uuid, NameServiceRecord*>::iterator regItr_t;
 	typedef std::map<Uuid, NameServiceRecord*>::const_iterator cRegItr_t;

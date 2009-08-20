@@ -27,7 +27,7 @@
 #include "XdrBuffer.h"
 #include "XdrReceiveBuffer.h"
 
-namespace ginnungagap
+namespace ggg
 {
 	struct InputBuffer
 	{

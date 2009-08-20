@@ -28,7 +28,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef std::map<NetAddr, CommunicationSocket*>::iterator regItr_t;
 	typedef std::map<NetAddr, CommunicationSocket*>::const_iterator cRegItr_t;

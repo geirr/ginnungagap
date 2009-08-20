@@ -27,7 +27,7 @@
 
 #include <string>
 
-namespace ginnungagap
+namespace ggg
 {
 	class CommunicationSocket;
 

@@ -37,18 +37,18 @@ namespace niflheim
 	class World;
 	class View;
 
-	class Goldmine : public ginnungagap::Object
+	class Goldmine : public ggg::Object
 	{
 		public:
-			Goldmine(const ginnungagap::dist_ptr<World>& world);
+			Goldmine(const ggg::dist_ptr<World>& world);
 
 			/* migration */
-			ginnungagap::XdrSendBuffer* deflate();
-			Goldmine(ginnungagap::XdrReceiveBuffer* xdr);
+			ggg::XdrSendBuffer* deflate();
+			Goldmine(ggg::XdrReceiveBuffer* xdr);
 			Goldmine() {}
 
 		private:
-			ginnungagap::dist_ptr<World> world_;
+			ggg::dist_ptr<World> world_;
 	};
 }
 

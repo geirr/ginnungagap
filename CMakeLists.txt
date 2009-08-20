@@ -29,7 +29,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/")
 add_definitions(-Wall -O2 -Wno-deprecated)
 
 include_directories("lib/ginnungagap/src")
-include_directories("niflheim/src/ginnungagap")
+include_directories("niflheim/src/ggg")
 include_directories("niflheim/src")
 
 add_subdirectory(lib)

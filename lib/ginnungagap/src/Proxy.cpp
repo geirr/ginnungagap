@@ -38,7 +38,7 @@ using std::cerr;
 
 using std::stringstream;
 
-namespace ginnungagap
+namespace ggg
 {
 	void Proxy::sendNeed() const
 	{

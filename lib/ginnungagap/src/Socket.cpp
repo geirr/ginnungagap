@@ -27,7 +27,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	Socket::~Socket()
 	{

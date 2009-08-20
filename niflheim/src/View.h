@@ -37,7 +37,7 @@
 namespace niflheim
 {
 	/* Need to support rmi, but not migration */
-	class View : public ginnungagap::Object
+	class View : public ggg::Object
 	{
 		public:
 			View() {}
@@ -58,7 +58,7 @@ namespace niflheim
 
 			/* Object will complain if this is not included
 			 * Might devide object in two later */
-			ginnungagap::XdrSendBuffer* deflate() { return new ginnungagap::XdrSendBuffer(ginnungagap::INT); }
+			ggg::XdrSendBuffer* deflate() { return new ggg::XdrSendBuffer(ggg::INT); }
 
 		private:
 			void drawView() const;

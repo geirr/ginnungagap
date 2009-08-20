@@ -41,7 +41,7 @@
 
 using std::cerr; using std::endl; using std::list; using std::stringstream;
 
-namespace ginnungagap
+namespace ggg
 {
 	typedef list<Uuid>::iterator idListItr_t;
 	enum InitAckTypes

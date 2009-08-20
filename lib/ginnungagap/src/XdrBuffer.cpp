@@ -34,7 +34,7 @@ using std::string;
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	XdrBuffer::XdrBuffer() {}
 	XdrBuffer::~XdrBuffer()

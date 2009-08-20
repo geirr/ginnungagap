@@ -28,7 +28,7 @@
 #include <rpc/xdr.h>
 #include <string>
 
-namespace ginnungagap
+namespace ggg
 {
 	enum xdrSize
 	{

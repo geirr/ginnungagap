@@ -20,50 +20,32 @@
 *                                                                       *
 ************************************************************************/
 
-#include "ProxyFactory.h"
+#ifndef GINNUNGAGAP_TESTRMIPROXY_H
+#define GINNUNGAGAP_TESTRMIPROXY_H
 
-#include "Object.h"
+#include <Proxy.h>
 
 #include "TestObject.h"
-#include "TestObjectProxy.h"
+#include "Uuid.h"
 
-#include "World.h"
-#include "WorldProxy.h"
-
-#include "Avatar.h"
-#include "AvatarProxy.h"
-
-#include "View.h"
-#include "ViewProxy.h"
-
-#include "Goldmine.h"
-#include "GoldmineProxy.h"
-
-namespace ginnungagap
+namespace ggg
 {
-	template <> Object* ProxyFactory::createProxy<TestObject>(const Uuid& objectId)
+	class TestObjectProxy : public Proxy, public TestObject
 	{
-		return new TestObjectProxy(objectId);
-	}
+		public:
+			TestObjectProxy(const Uuid& objectId);
+			~TestObjectProxy();
 
-	template <> Object* ProxyFactory::createProxy<niflheim::World>(const Uuid& objectId)
-	{
-		return new WorldProxy(objectId);
-	}
-
-	template <> Object* ProxyFactory::createProxy<niflheim::Avatar>(const Uuid& objectId)
-	{
-		return new AvatarProxy(objectId);
-	}
-
-	template <> Object* ProxyFactory::createProxy<niflheim::View>(const Uuid& objectId)
-	{
-		return new ViewProxy(objectId);
-	}
-
-	template <> Object* ProxyFactory::createProxy<niflheim::Goldmine>(const Uuid& objectId)
-	{
-		return new GoldmineProxy(objectId);
-	}
+			/* RMI callabe functions */
+			void void_void();
+			void void_int(int one);
+			int int_void();
+			int int_int(int one);
+			int int_intInt(int one, int two);
+			int int_intIntInt(int one, int two, int three);
+			int int_vectorOfInts(const std::vector<int>& vectorOfInts);
+	};
 }
+
+#endif
 

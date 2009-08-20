@@ -20,25 +20,22 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_VIEWPROXY_H
-#define GINNUNGAGAP_VIEWPROXY_H
+#ifndef GINNUNGAGAP_GOLDMINEPROXY_H
+#define GINNUNGAGAP_GOLDMINEPROXY_H
 
 #include <Proxy.h>
 
-#include "View.h"
+#include "Goldmine.h"
 
 #include <iostream>
 
-namespace ginnungagap
+namespace ggg
 {
-	class ViewProxy : public Proxy, public niflheim::View
+	class GoldmineProxy : public Proxy, public niflheim::Goldmine
 	{
 		public:
-			ViewProxy(const Uuid& objectId);
-			~ViewProxy();
-
-			/* Should be callable with rmi */
-			void updateView(const niflheim::AvatarsView& avatarsView);
+			GoldmineProxy(const Uuid& objectId);
+			~GoldmineProxy();
 	};
 }
 

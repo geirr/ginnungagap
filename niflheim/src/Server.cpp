@@ -38,8 +38,8 @@
 using std::cerr; using std::cout; using std::endl; using std::string;
 using std::make_pair; using std::istringstream;
 
-using ginnungagap::Ginnungagap; using ginnungagap::NetAddr; using ginnungagap::dist_ptr;
-using ginnungagap::Uuid; using ginnungagap::SERVER;
+using ggg::Ginnungagap; using ggg::NetAddr; using ggg::dist_ptr;
+using ggg::Uuid; using ggg::SERVER;
 
 using niflheim::World;
 

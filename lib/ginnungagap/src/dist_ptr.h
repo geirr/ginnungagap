@@ -31,7 +31,7 @@
 
 #include <iostream>
 
-namespace ginnungagap
+namespace ggg
 {
 	template <class T> class dist_ptr
 	{

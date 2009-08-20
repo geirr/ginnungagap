@@ -20,7 +20,7 @@
 *                                                                       *
 ************************************************************************/
 
-#include "AvatarProxy.h"
+#include "TestObjectProxy.h"
 #include "XdrSendBuffer.h"
 #include "XdrReceiveBuffer.h"
 #include "ObjectName.h"
@@ -29,98 +29,97 @@
 #include "Ginnungagap.h"
 
 #include <iostream>
+
 using std::endl;
 using std::cerr;
-using std::vector;
-using std::pair;
 
-using niflheim::Direction;
-using niflheim::WorldObjectInfo;
-using niflheim::AvatarsView;
-
-namespace ginnungagap
+namespace ggg
 {
-	typedef vector< WorldObjectInfo >::const_iterator cObjItr_t;
-
-	AvatarProxy::AvatarProxy(const Uuid& objectId)
+	TestObjectProxy::TestObjectProxy(const Uuid& objectId)
 	{
-		objectType_ = NIFLHEIM_AVATAR_OBJ;
-		this->setObjectId(objectId);
+		objectType_ = TESTOBJECT_OBJ;
 		object_ = this;
+		this->setObjectId(objectId);
 		sendNeed();
 	}
 
-	AvatarProxy::~AvatarProxy()
+	TestObjectProxy::~TestObjectProxy()
 	{
 		sendDontNeed();
 	}
 
-	/* RMI */
-	void AvatarProxy::move(const Direction& direction)
+	void TestObjectProxy::void_void()
 	{
-		XdrSendBuffer* xdr = makeRmiMsg(0, INT);
-
-		int dir = direction;
-
-		*xdr << dir;
-
+		XdrSendBuffer* xdr = makeRmiMsg(0);
 		sendAndGetRetVal(xdr);
 	}
 
-	void AvatarProxy::deleteAvatar()
+	void TestObjectProxy::void_int(int one)
 	{
-		XdrSendBuffer* xdr = makeRmiMsg(1);
-
+		XdrSendBuffer* xdr = makeRmiMsg(1, INT);
+		*xdr << one;
 		sendAndGetRetVal(xdr);
 	}
 
-	/* Events */
-	void AvatarProxy::updateView(const AvatarsView& avatarsView)
+	int TestObjectProxy::int_void()
 	{
-		XdrSendBuffer* xdr = makeEventMsg(0, INT*5 + (INT*3)*avatarsView.worldObjects.size());
+		XdrSendBuffer* xdr = makeRmiMsg(2);
+		XdrReceiveBuffer* xdrReciveBuffer = sendAndGetRetVal(xdr);
+		int retVal;
+		*xdrReciveBuffer >> retVal;
+		delete xdrReciveBuffer;
+		return retVal;
+	}
 
-		pair<int, int> vtlc = avatarsView.visibleTopLeftCorner;
-		pair<int, int> vlrc = avatarsView.visibleLowerRightCorner;
-		int size = avatarsView.worldObjects.size();
-		
-		*xdr << vtlc.first << vtlc.second << vlrc.first << vlrc.second << size;
-		int wot, x, y;
-		for (cObjItr_t wo = avatarsView.worldObjects.begin(); wo != avatarsView.worldObjects.end(); ++wo)
+	int TestObjectProxy::int_int(int one)
+	{
+		XdrSendBuffer* xdr = makeRmiMsg(3, INT);
+		*xdr << one;
+		XdrReceiveBuffer* xdrReciveBuffer = sendAndGetRetVal(xdr);
+		int retVal;
+		*xdrReciveBuffer >> retVal;
+		delete xdrReciveBuffer;
+		return retVal;
+	}
+
+	int TestObjectProxy::int_intInt(int one, int two)
+	{
+		XdrSendBuffer* xdr = makeRmiMsg(4, INT*2);
+		*xdr << one << two;
+		XdrReceiveBuffer* xdrReciveBuffer = sendAndGetRetVal(xdr);
+		int retVal;
+		*xdrReciveBuffer >> retVal;
+		delete xdrReciveBuffer;
+		return retVal;
+	}
+
+	int TestObjectProxy::int_intIntInt(int one, int two, int three)
+	{
+		XdrSendBuffer* xdr = makeRmiMsg(5, INT*3);
+		*xdr << one << two << three;
+		XdrReceiveBuffer* xdrReciveBuffer = sendAndGetRetVal(xdr);
+		int retVal;
+		*xdrReciveBuffer >> retVal;
+		delete xdrReciveBuffer;
+		return retVal;
+	}
+
+	int TestObjectProxy::int_vectorOfInts(const std::vector<int>& vectorOfInts)
+	{
+		int sizeOfVector = vectorOfInts.size();
+		XdrSendBuffer* xdr = makeRmiMsg(6, INT + INT*sizeOfVector);
+		*xdr << sizeOfVector;
+		int tmp;
+		for (std::vector<int>::const_iterator itr = vectorOfInts.begin(); itr != vectorOfInts.end(); ++itr)
 		{
-			x = wo->position.first;
-			y = wo->position.second;
-			*xdr << x << y;
-			wot = wo->worldObjectType;
-			*xdr << wot;
+			tmp = *itr;
+			*xdr << tmp;
 		}
-
-		sendEvent(xdr);
-	}
-
-	void AvatarProxy::changeWorld(const dist_ptr<niflheim::World>& newWorld)
-	{
-		XdrSendBuffer* xdr = makeEventMsg(1, OBJID + NETADDR);
-
-		Uuid worldId = newWorld.objectId();
-		NetAddr worldAddr = Ginnungagap::Instance()->nameService()->netAddr(worldId);
-
-		*xdr << worldId << worldAddr;
-
-		sendEvent(xdr);
-	}
-
-	void AvatarProxy::deactivate()
-	{
-		XdrSendBuffer* xdr = makeEventMsg(2);
-
-		sendEvent(xdr);
-	}
-
-	void AvatarProxy::activate()
-	{
-		XdrSendBuffer* xdr = makeEventMsg(3);
-
-		sendEvent(xdr);
+		XdrReceiveBuffer* xdrReciveBuffer = sendAndGetRetVal(xdr);
+		int retVal;
+		*xdrReciveBuffer >> retVal;
+		delete xdrReciveBuffer;
+		return retVal;
 	}
 }
 

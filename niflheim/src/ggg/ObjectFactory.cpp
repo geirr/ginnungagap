@@ -34,7 +34,7 @@
 using std::cerr;
 using std::endl;
 
-namespace ginnungagap
+namespace ggg
 {
 	Object* ObjectFactory::createObject(int objectName, XdrReceiveBuffer* xdr)
 	{

@@ -20,20 +20,50 @@
 *                                                                       *
 ************************************************************************/
 
-#ifndef GINNUNGAGAP_OBJECTNAME_H
-#define GINNUNGAGAP_OBJECTNAME_H
+#include "ProxyFactory.h"
 
-namespace ginnungagap
+#include "Object.h"
+
+#include "TestObject.h"
+#include "TestObjectProxy.h"
+
+#include "World.h"
+#include "WorldProxy.h"
+
+#include "Avatar.h"
+#include "AvatarProxy.h"
+
+#include "View.h"
+#include "ViewProxy.h"
+
+#include "Goldmine.h"
+#include "GoldmineProxy.h"
+
+namespace ggg
 {
-	enum ObjectName
+	template <> Object* ProxyFactory::createProxy<TestObject>(const Uuid& objectId)
 	{
-		TESTOBJECT_OBJ,
-		NIFLHEIM_WORLD_OBJ,
-		NIFLHEIM_AVATAR_OBJ,
-		NIFLHEIM_GOLDMINE_OBJ,
-		NIFLHEIM_VIEW_OBJ
-	};
-}
+		return new TestObjectProxy(objectId);
+	}
 
-#endif
+	template <> Object* ProxyFactory::createProxy<niflheim::World>(const Uuid& objectId)
+	{
+		return new WorldProxy(objectId);
+	}
+
+	template <> Object* ProxyFactory::createProxy<niflheim::Avatar>(const Uuid& objectId)
+	{
+		return new AvatarProxy(objectId);
+	}
+
+	template <> Object* ProxyFactory::createProxy<niflheim::View>(const Uuid& objectId)
+	{
+		return new ViewProxy(objectId);
+	}
+
+	template <> Object* ProxyFactory::createProxy<niflheim::Goldmine>(const Uuid& objectId)
+	{
+		return new GoldmineProxy(objectId);
+	}
+}
 
