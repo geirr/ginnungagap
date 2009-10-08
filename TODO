@@ -1,15 +1,22 @@
 dist_ptr:
-	* support rmi for local objects in migrationg state (will be possible when we forward rmis at once)
+	* support RMI for local objects in migrating state (will be possible when we forward RMIs at once)
 
 MigrationGroup:
-	* Check that removing objects from deactiveted group (in migrating state) works
+	* Check that removing objects from deactivated group (in migrating state) works
 	* Check changeGroup for bugs
 
 Migration:
 	* Forward RMI messages while objects are in migrating state
-	* Send a mininit(?) message to the new host first, and make it allocate
+	* Send a miginit(?) message to the new host first, and make it allocate
 	  the new objects, then send (just the changed?) data from the original objects
 
 Object:
-	* Devide Object into identifiable, remote, movable? Or something similar...
+	* Divide Object into two or three objects: identifiable, remote, movable? Or something similar...
 
+Code enhancements:
+	* Remove the ugly pointers:
+		- STL containers with pointers are not good
+		- Change the xdr buffer pointers to Boost::shared_ptr?
+	* Introduce exceptions
+		- Socket reads/writes
+		- Buffer reads/writes

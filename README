@@ -4,9 +4,32 @@
 
 Ginnungagap(*) is a middleware written in C++ which 
 supports RMI, migration of objects, grouping
-of objects, and core selection. It includes basic
+of objects, and core-node selection. It includes basic
 server functionality. An test application, named
 Niflheim, which uses Ginnungagap, is included.
+
+*******************************
+* THE IDEA BEHIND GINNUNGAGAP *
+*******************************
+
+With this middleware it is possible to group the
+objects used by one or more clients. With core-node
+selection algorithms, one can search for nodes that
+are better physically placed than the current one.
+Since our middleware supports migration, it is then
+possible to move the entire group of objects to the
+new, better placed server (transparently during
+run-time). This way we can lower the aggregate latency
+from the clients to the objects they need.
+
+
+***************
+* LATEST CODE *
+***************
+
+The latest version of this code can be found at:
+
+http://github.com/geirr/ginnungagap
 
 
 *******************************
@@ -17,10 +40,10 @@ lib/ginnungagap:
 	This is the main middleware source code
 
 niflheim:
-	This is the test applications source code
+	This is the test application source code
 
 niflheim/src/ggg:
-    This is the test applications bindings to the middleware\
+    This folder contains the test application's bindings to the middleware
 
 
 *************
@@ -30,7 +53,7 @@ niflheim/src/ggg:
 Just run the compile.sh script, and the middleware
 and test application will be built in a directory
 called `build'. All the binaries can then be found
-in the direcory:
+in the directory:
 
 build/niflheim/src
 
@@ -54,6 +77,17 @@ sudo apt-get install libc-dev uuid-dev cmake libboost-graph-dev
 ***********
 
 Se the file COPYING
+
+********
+* NOTE *
+********
+
+Since I didn't know C++ when I started this project (my
+background is from C), some of the old code is quite ugly,
+and not in the spirit of C++. Please see the TODO file
+for some of the most important code changes that need to
+be done.
+
 
 
 * Ginnungagap: A term from Old Norse mythology, Ginnungagap is
