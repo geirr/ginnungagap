@@ -57,43 +57,40 @@ target_link_libraries(server Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD
 add_executable(proxy Proxy.cpp)
 target_link_libraries(proxy Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(mlclient ClientMeasureLat.cpp)
-target_link_libraries(mlclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
-
+# Client that only measures latency
+#add_executable(mlclient test/ClientMeasureLat.cpp)
+#target_link_libraries(mlclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
 # Test server and proxy for mig and mig grp tests
-add_executable(testmigserver TestMigServer.cpp)
-target_link_libraries(testmigserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testmigserver test/TestMigServer.cpp)
+#target_link_libraries(testmigserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testmiggrpserver TestMigGrpServer.cpp)
-target_link_libraries(testmiggrpserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testmiggrpserver test/TestMigGrpServer.cpp)
+#target_link_libraries(testmiggrpserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testmigproxy TestMigProxy.cpp)
-target_link_libraries(testmigproxy Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
-
+#add_executable(testmigproxy test/TestMigProxy.cpp)
+#target_link_libraries(testmigproxy Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
 # Test server, proxy and client for rmi overhead during migration
-add_executable(testmroserver TestMigRmiOverheadServer.cpp)
-target_link_libraries(testmroserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testmroserver test/TestMigRmiOverheadServer.cpp)
+#target_link_libraries(testmroserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testmroproxy TestMigRmiOverheadProxy.cpp)
-target_link_libraries(testmroproxy Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testmroproxy test/TestMigRmiOverheadProxy.cpp)
+#target_link_libraries(testmroproxy Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testmroclient TestMigRmiOverheadClient.cpp)
-target_link_libraries(testmroclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
-
-
+#add_executable(testmroclient test/TestMigRmiOverheadClient.cpp)
+#target_link_libraries(testmroclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
 # Test server and client for rmi, and lmi test
-add_executable(testclient TestRmiClient.cpp)
-target_link_libraries(testclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testclient test/TestRmiClient.cpp)
+#target_link_libraries(testclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testlmiclient TestRmiLocalClient.cpp)
-target_link_libraries(testlmiclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testlmiclient test/TestRmiLocalClient.cpp)
+#target_link_libraries(testlmiclient Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testrmiserver TestRmiServer.cpp)
-target_link_libraries(testrmiserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testrmiserver test/TestRmiServer.cpp)
+#target_link_libraries(testrmiserver Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
-add_executable(testlmi TestLMI.cpp)
-target_link_libraries(testlmi Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
+#add_executable(testlmi test/TestLMI.cpp)
+#target_link_libraries(testlmi Ginnungagap NetAddr Uuid NameService ${CMAKE_THREAD_LIBS_INIT} ProxyFactory ObjectFactory Skeleton World Avatar View Goldmine)
 
