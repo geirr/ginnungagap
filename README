@@ -58,6 +58,15 @@ in the directory:
 build/niflheim/src
 
 
+********************
+* RUNNING NIFLHEIM *
+********************
+
+Please see the file:
+
+niflheim/README
+
+
 **************************
 * NEEDED TOOLS/LIBRARIES *
 **************************
@@ -72,11 +81,13 @@ following command:
 
 sudo apt-get install libc-dev uuid-dev cmake libboost-graph-dev
 
+
 ***********
 * LICENCE *
 ***********
 
-Se the file COPYING
+See the file COPYING.
+
 
 ********
 * NOTE *
