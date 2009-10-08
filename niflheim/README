@@ -1,7 +1,92 @@
-************
-* NIFLHEIM *
-************
+**************
+** NIFLHEIM **
+**************
 
-Niflheim is a sample application built
-using the Ginnungagap middleware. It also
-consists of 
+Niflheim is a sample application built using the
+Ginnungagap middleware. It simulates a very
+simple mmog, where a world object resides on
+the server, and the clients connect and get an
+avatar each. The client comes in two versions,
+one where the client moves the avatar at random,
+and one where the avatar can be controlled with
+the keyboard.
+
+********************
+* RUNNING NIFLHEIM *
+********************
+
+Niflheim consists of four different binaries:
+server, proxy, client and mclient.
+
+You will need to run one instance of the server.
+This is the machine the clients will connect to at
+first. Then you can run any number of proxies,
+usually 0-5, and any number of any version of
+the client.
+
+The concept is of course that you at least runs
+some proxies, so the middleware will be able to
+relocate the world and avatars to the server or
+proxy which is closest to the center of the clients.
+
+
+**********
+* SERVER *
+**********
+
+Usage:
+
+	server <local IP>:<wanted listening port> <core-node selection threshold in ms> <core-node selection interval in seconds>
+
+Example:
+
+	server 197.234.221.4:6767 10 120
+
+*********
+* PROXY *
+*********
+
+Usage:
+
+	proxy <local IP>:<wanted listening port> <server IP>:<server port> <core-node selection threshold in ms> <core-node selection interval in seconds>
+
+Example:
+
+	proxy 223.114.98.34:6767 197.234.221.4:6767 10 120
+
+**********
+* CLIENT *
+**********
+
+Usage:
+
+	client <local IP>:<wanted listening port> <server IP>:<server port> <number of times to move the avatar>
+
+Example:
+
+	client 198.192.63.111:6666 197.234.221.4:6767 500
+
+*****************
+* MANUAL CLIENT *
+*****************
+
+Usage:
+
+	mclient <local IP>:<wanted listening port> <server IP>:<server port>
+
+Example:
+
+	mclient 198.192.63.111:6666 197.234.221.4:6767
+
+***********************************
+* GINNUNGAGAP PERFORMANCE TESTING *
+***********************************
+
+In the niflheim/src/test folder, you
+can find the code for the servers and clients
+used for testing the performance of 
+ginnungagap. These are kind of badly
+documented, so if you really want to know
+more about these, you should probably
+contact me.
+

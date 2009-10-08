@@ -20,3 +20,6 @@ Code enhancements:
 	* Introduce exceptions
 		- Socket reads/writes
 		- Buffer reads/writes
+
+Niflheim:
+	* Add error messages to the client, server and proxies, when given wrong arguments
