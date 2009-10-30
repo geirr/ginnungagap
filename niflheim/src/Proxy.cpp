@@ -26,7 +26,6 @@
 
 #include "World.h"
 #include "Avatar.h"
-#include "TestObject.h"
 
 #include <pthread.h>
 #include <string>

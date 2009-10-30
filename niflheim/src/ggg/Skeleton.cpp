@@ -28,7 +28,6 @@
 #include "ObjectName.h"
 #include "XdrSendBuffer.h"
 
-#include "TestObject.h"
 #include "World.h"
 #include "Avatar.h"
 #include "View.h"
@@ -70,80 +69,7 @@ namespace ggg
 		objectId_ = objectId;
 		piggybackNetAddr_ = piggybackNetAddr;
 
-		if (objectName == TESTOBJECT_OBJ)
-		{
-			TestObject* testRmi = dynamic_cast<TestObject*>(object);
-
-			if (funcNr_ == 0)
-			{
-				testRmi->void_void();
-				xdrRet = makeRmiRetMsg();
-			}
-			else if (funcNr_ == 1)
-			{
-				int one;
-				*xdrReciveBuffer >> one;
-				testRmi->void_int(one);
-				xdrRet = makeRmiRetMsg();
-			}
-			else if (funcNr_ == 2)
-			{
-				int ret;
-				ret = testRmi->int_void();
-				xdrRet = makeRmiRetMsg(INT);
-				*xdrRet << ret;
-			}
-			else if (funcNr_ == 3)
-			{
-				int one;
-				*xdrReciveBuffer >> one;
-				int ret;
-				ret = testRmi->int_int(one);
-				xdrRet = makeRmiRetMsg(INT);
-				*xdrRet << ret;
-			}
-			else if (funcNr_ == 4)
-			{
-				int one, two;
-				*xdrReciveBuffer >> one >> two;
-				int ret;
-				ret = testRmi->int_intInt(one, two);
-				xdrRet = makeRmiRetMsg(INT);
-				*xdrRet << ret;
-			}
-			else if (funcNr_ == 5)
-			{
-				int one, two, three;
-				*xdrReciveBuffer >> one >> two >> three;
-				int ret;
-				ret = testRmi->int_intIntInt(one, two, three);
-				xdrRet = makeRmiRetMsg(INT);
-				*xdrRet << ret;
-			}
-			else if (funcNr_ == 6)
-			{
-				int numberOfInts;
-				*xdrReciveBuffer >> numberOfInts;
-				std::vector<int> ints(numberOfInts);
-				int tmp;
-				for (int i = 0; i != numberOfInts; ++i)
-				{
-					*xdrReciveBuffer >> tmp;
-					ints[i] = tmp;
-				}
-				int ret;
-				ret = testRmi->int_vectorOfInts(ints);
-				xdrRet = makeRmiRetMsg(INT);
-				*xdrRet << ret;
-			}
-			else
-			{
-				cerr << "Skeleton: Error calling right rmi for TestObject" << endl;
-			}
-			delete xdrReciveBuffer;
-			return xdrRet;
-		}
-		else if (objectName == NIFLHEIM_AVATAR_OBJ)
+		if (objectName == NIFLHEIM_AVATAR_OBJ)
 		{
 			Avatar* avatar = dynamic_cast<Avatar*>(object);
 

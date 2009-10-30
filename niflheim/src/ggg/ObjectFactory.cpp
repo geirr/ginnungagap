@@ -25,7 +25,6 @@
 
 #include "Object.h"
 
-#include "TestObject.h"
 #include "World.h"
 #include "Avatar.h"
 
@@ -40,9 +39,6 @@ namespace ggg
 	{
 		switch (objectName)
 		{
-			case TESTOBJECT_OBJ:
-				return new TestObject(xdr);
-				break;
 			case NIFLHEIM_WORLD_OBJ:
 				return new niflheim::World(xdr);
 				break;

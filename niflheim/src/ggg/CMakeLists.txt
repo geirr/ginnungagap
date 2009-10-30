@@ -20,7 +20,7 @@
 #                                                                       #
 #########################################################################
 
-set(proxyObjects TestObjectProxy.cpp WorldProxy.cpp AvatarProxy.cpp ViewProxy.cpp GoldmineProxy.cpp)
+set(proxyObjects WorldProxy.cpp AvatarProxy.cpp ViewProxy.cpp GoldmineProxy.cpp)
 add_library(ProxyFactory STATIC ProxyFactory.cpp ${proxyObjects})
 target_link_libraries(ProxyFactory Xdr Object NameService CommunicationSocketManager Proxy)
 
@@ -28,5 +28,5 @@ add_library(Skeleton STATIC Skeleton.cpp)
 target_link_libraries(Skeleton Xdr Uuid)
 
 add_library(ObjectFactory STATIC ObjectFactory.cpp)
-target_link_libraries(ObjectFactory TestObject World Avatar Object Goldmine)
+target_link_libraries(ObjectFactory World Avatar Object Goldmine)
 

@@ -24,9 +24,6 @@
 
 #include "Object.h"
 
-#include "TestObject.h"
-#include "TestObjectProxy.h"
-
 #include "World.h"
 #include "WorldProxy.h"
 
@@ -41,11 +38,6 @@
 
 namespace ggg
 {
-	template <> Object* ProxyFactory::createProxy<TestObject>(const Uuid& objectId)
-	{
-		return new TestObjectProxy(objectId);
-	}
-
 	template <> Object* ProxyFactory::createProxy<niflheim::World>(const Uuid& objectId)
 	{
 		return new WorldProxy(objectId);
