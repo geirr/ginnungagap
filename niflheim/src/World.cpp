@@ -51,7 +51,7 @@ namespace niflheim
 
 	typedef map< dist_ptr<World>, pair<int, int> >::const_iterator cWorldOffsetItr_t;
 
-	World::World(const int& xLen, const int& yLen, const int& viewSize, const Uuid& objectId, const dist_ptr<World>& worldAround) : moveCount_(0), avatarCount_(0), world_(xLen, std::vector<WorldObject>(yLen)), viewSize_(viewSize)
+	World::World(const int& xLen, const int& yLen, const int& viewSize, const Uuid& objectId, const dist_ptr<World>& worldAround) : world_(xLen, std::vector<WorldObject>(yLen)), viewSize_(viewSize)
 	{
 		this->setObjectId(objectId);
 		std::srand((unsigned)time(0));
@@ -110,8 +110,7 @@ namespace niflheim
 					{
 						(*affWorld)->updateWithAvatar(dist_ptr<World>(this), make_pair(xRand, yRand));
 					}
-
-					++avatarCount_;
+					drawWorld();
 					return newAvatar;
 				}
 			}
@@ -143,9 +142,7 @@ namespace niflheim
 		{
 			(*affWorld)->removeBufferAvatar(dist_ptr<World>(this), pos);
 		}
-		--avatarCount_;
-		if (avatarCount_ < 10)
-			drawWorld();
+		drawWorld();
 	}
 
 	void World::moveAvatar(dist_ptr<Avatar> avatar, const Direction& direction)
@@ -205,6 +202,7 @@ namespace niflheim
 			world_[position.first][position.second].worldObjectType = NOTHING;
 			world_[position.first][position.second].avatar.reset();
 			updateAffectedAvatarsViews(position, direction);
+			drawWorld();
 
 			/* update other worlds buffers */
 			list< dist_ptr<World> > affectedWorlds = getWorldsInLOS(position, direction);
@@ -229,7 +227,7 @@ namespace niflheim
 			world_[oldPosition.first][oldPosition.second].world = world;
 			world->moveOK(from, to);
 			updateAffectedAvatarsViews(position);
-			++avatarCount_;
+			drawWorld();
 		}
 		else
 		{
@@ -247,7 +245,7 @@ namespace niflheim
 		world_[from.first][from.second].avatar.reset();
 		world_[to.first][to.second].worldObjectType = BUFFER_AVATAR;
 		updateAffectedAvatarsViews(from);
-		--avatarCount_;
+		drawWorld();
 	}
 
 	void World::moveNotOK(const pair<int, int>& from)
@@ -328,6 +326,7 @@ namespace niflheim
 			world_[oldPosition.first][oldPosition.second].world = world;
 		}
 		updateAffectedAvatarsViews(oldPosition, direction);
+		drawWorld();
 	}
 
 	void World::drawWorld() const

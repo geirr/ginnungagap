@@ -96,9 +96,6 @@ namespace niflheim
 			AvatarsView getAvatarsView(const ggg::dist_ptr<Avatar>& avatar);
 			std::pair<int, int> getPositionWithOffset(const ggg::dist_ptr<World>& world, const std::pair<int, int>& pos);
 
-			int moveCount_;
-			int avatarCount_;
-
 			/* data to migrate */
 			std::vector< std::vector< WorldObject > > world_;
 			unsigned int viewSize_;

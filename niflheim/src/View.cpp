@@ -49,7 +49,7 @@ namespace niflheim
 		{
 			view_[object->position.first][object->position.second] = object->worldObjectType;
 		}
-		//drawView();
+		drawView();
 	}
 
 	void View::drawView() const

@@ -257,7 +257,7 @@ namespace niflheim
 		return xdr;
 	}
 
-	World::World(XdrReceiveBuffer* xdr) : moveCount_(0), avatarCount_(0), world_(0, vector< WorldObject >(0))
+	World::World(XdrReceiveBuffer* xdr) : world_(0, vector< WorldObject >(0))
 	{
 		std::srand((unsigned)time(0));
 
@@ -298,7 +298,6 @@ namespace niflheim
 			*xdr >> tmpUuid >> x >> y;
 			world_[x][y].worldObjectType = AVATAR;
 			world_[x][y].avatar = dist_ptr<Avatar>(tmpUuid);
-			++avatarCount_;
 		}
 
 		*xdr >> tmp;
