@@ -25,12 +25,12 @@
 
 #include "NetAddr.h"
 #include "Uuid.h"
+#include "NameServiceRecord.h"
 
 #include <map>
 
 namespace ggg
 {
-	class NameServiceRecord;
 	class Object;
 	class XdrReceiveBuffer;
 	class XdrSendBuffer;
@@ -65,7 +65,7 @@ namespace ggg
 			void decreaseProxyCount(const Uuid& objectId);
 
 		private:
-			std::map<Uuid, NameServiceRecord*> nameServiceRegister_;
+			std::map<Uuid, NameServiceRecord> nameServiceRegister_;
 	};
 }
 

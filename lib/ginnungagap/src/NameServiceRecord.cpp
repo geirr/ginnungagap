@@ -23,21 +23,19 @@
 #include "NameServiceRecord.h"
 
 #include "Object.h"
-#include "NetAddr.h"
-#include "Uuid.h"
 #include "Ginnungagap.h"
 
 namespace ggg
 {
 	NameServiceRecord::NameServiceRecord(const Uuid& objectId, Object* object) :
-		objectId_(objectId), netAddr_(Ginnungagap::Instance()->netAddr()), local_(true), proxyCount_(0), localObjectOrProxy_(object) {}
+		objectId_(objectId), netAddr_(Ginnungagap::Instance()->netAddr()), proxyCount_(0), localObjectOrProxy_(object) {}
 
 	NameServiceRecord::NameServiceRecord(const Uuid& objectId, const NetAddr& remoteAddr) :
-		objectId_(objectId), netAddr_(remoteAddr), local_(false), proxyCount_(0), localObjectOrProxy_(0) {}
+		objectId_(objectId), netAddr_(remoteAddr), proxyCount_(0), localObjectOrProxy_(0) {}
 
 	bool NameServiceRecord::isLocal() const
 	{
-		return local_;
+		return netAddr_ == Ginnungagap::Instance()->netAddr();
 	}
 
 	Uuid NameServiceRecord::objectId() const
@@ -90,7 +88,6 @@ namespace ggg
 		
 		localObjectOrProxy_ = object;
 		netAddr_ = Ginnungagap::Instance()->netAddr();
-		local_ = true;
 	}
 
 	void NameServiceRecord::setToRemote(const NetAddr& remoteAddr)
@@ -102,7 +99,6 @@ namespace ggg
 			delete localObjectOrProxy_;
 		}
 		localObjectOrProxy_ = 0;
-		local_ = false;
 	}
 }
 

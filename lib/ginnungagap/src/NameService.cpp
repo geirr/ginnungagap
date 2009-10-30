@@ -22,7 +22,6 @@
 
 #include "NameService.h"
 
-#include "NameServiceRecord.h"
 #include "NetAddr.h"
 #include "Uuid.h"
 #include "Object.h"
@@ -38,10 +37,12 @@
 using std::cerr;
 using std::endl;
 
+using std::make_pair;
+
 namespace ggg
 {
-	typedef std::map<Uuid, NameServiceRecord*>::iterator regItr_t;
-	typedef std::map<Uuid, NameServiceRecord*>::const_iterator cRegItr_t;
+	typedef std::map<Uuid, NameServiceRecord>::iterator regItr_t;
+	typedef std::map<Uuid, NameServiceRecord>::const_iterator cRegItr_t;
 
 	bool NameService::exists(const Uuid& objectId) const
 	{
@@ -56,7 +57,7 @@ namespace ggg
 		cRegItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr == nameServiceRegister_.end())
 			return false;
-		return regItr->second->isLocal();
+		return (regItr->second).isLocal();
 	}
 
 	Object* NameService::getLocalObjectOrProxy(const Uuid& objectId) const
@@ -64,13 +65,13 @@ namespace ggg
 		cRegItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr == nameServiceRegister_.end())
 			return 0;
-		return regItr->second->localObjectOrProxy();
+		return (regItr->second).localObjectOrProxy();
 	}
 
 	void NameService::setLocalObjectOrProxy(Object* objectOrProxy)
 	{
 		regItr_t regItr = nameServiceRegister_.find(objectOrProxy->objectId());
-		regItr->second->setLocalObjectOrProxy(objectOrProxy);
+		(regItr->second).setLocalObjectOrProxy(objectOrProxy);
 	}
 
 	NetAddr NameService::netAddr(const Uuid& objectId) const
@@ -82,7 +83,7 @@ namespace ggg
 		cRegItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr == nameServiceRegister_.end())
 			return NetAddr("0.0.0.0:0");
-		return regItr->second->netAddr();
+		return (regItr->second).netAddr();
 	}
 
 	void NameService::bind(Object& object)
@@ -98,37 +99,35 @@ namespace ggg
 				delete obj;
 			deleteNameServiceRecord(object.objectId());
 		}
-		NameServiceRecord* nsr = new NameServiceRecord(object.objectId(), &object);
-		nameServiceRegister_[object.objectId()] = nsr;
+		nameServiceRegister_.insert(make_pair(object.objectId(), NameServiceRecord(object.objectId(), &object)));
 	}
 
 	void NameService::setAsRemote(const Uuid& objectId, const NetAddr& netAddr)
 	{
-		cRegItr_t regItr = nameServiceRegister_.find(objectId);
+		regItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr == nameServiceRegister_.end())
 		{
 			cerr << "Error: Object is not in NameService, can't set to remote" << endl;
 			exit(1);
 		}
-		regItr->second->setToRemote(netAddr);
+		(regItr->second).setToRemote(netAddr);
 	}
 
 	void NameService::addRemoteObject(const Uuid& objectId, const NetAddr& netAddr)
 	{
-		NameServiceRecord* nsr = new NameServiceRecord(objectId, netAddr);
-		nameServiceRegister_[objectId] = nsr;
+		nameServiceRegister_.insert(make_pair(objectId, NameServiceRecord(objectId, netAddr)));
 	}
 
 	void NameService::updateNetAddr(const Uuid& objectId, const NetAddr& netAddr)
 	{
-		cRegItr_t regItr = nameServiceRegister_.find(objectId);
+		regItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr == nameServiceRegister_.end())
 		{
 			addRemoteObject(objectId, netAddr);
 		}
 		else
 		{
-			regItr->second->updateNetAddr(netAddr);
+			(regItr->second).updateNetAddr(netAddr);
 		}
 	}
 
@@ -137,9 +136,7 @@ namespace ggg
 		regItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr != nameServiceRegister_.end())
 		{
-			NameServiceRecord* nsr = regItr->second;
 			nameServiceRegister_.erase(regItr);
-			delete nsr;
 		}
 
 	}
@@ -172,19 +169,19 @@ namespace ggg
 
 	void NameService::increaseProxyCount(const Uuid& objectId)
 	{
-		cRegItr_t regItr = nameServiceRegister_.find(objectId);
+		regItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr != nameServiceRegister_.end())
 		{
-			regItr->second->increaseProxyCount();
+			(regItr->second).increaseProxyCount();
 		}
 	}
 
 	void NameService::decreaseProxyCount(const Uuid& objectId)
 	{
-		cRegItr_t regItr = nameServiceRegister_.find(objectId);
+		regItr_t regItr = nameServiceRegister_.find(objectId);
 		if (regItr != nameServiceRegister_.end())
 		{
-			regItr->second->decreaseProxyCount();
+			(regItr->second).decreaseProxyCount();
 		}
 	}
 }

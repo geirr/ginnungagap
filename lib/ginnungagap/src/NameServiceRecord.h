@@ -56,7 +56,6 @@ namespace ggg
 		private:
 			const Uuid objectId_;
 			NetAddr netAddr_;
-			bool local_;
 			int proxyCount_;
 			Object* localObjectOrProxy_;
 	};
